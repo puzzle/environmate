@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+$:.push File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'optparse'
+require 'environmate/app'
+
+options = {
+  verbosity:  nil,
+  foreground: false,
+  trace:      true,
+}
+
+parser = OptionParser.new do|opts|
+	opts.banner = "Usage: environmate [options]"
+
+	opts.on('-c', '--config CONFIGFILE.YML', 'Location of the configuration file') do |config_file|
+		options[:config_file] = config_file
+	end
+
+	opts.on('-v', '--verbosity VERBOSITY', 'Log Verbosity: ERROR, WARN, INFO, DEBUG') do |verbosity|
+		options[:verbosity] = verbosity
+	end
+
+	opts.on('-f', '--foreground', 'Log to console instead of logfile and don\'t daemonize') do
+		options[:foreground] = true
+	end
+
+  opts.on('-t', '--trace', 'Print backtrace on error') do
+		options[:trace] = true
+	end
+
+	opts.on('-h', '--help', 'Displays Help') do
+		puts opts
+		exit
+	end
+end
+
+parser.parse!
+
+Environmate::App.setup(options)
+Environmate::App.run!
