@@ -7,6 +7,9 @@ module Environmate
 
   def self.load_configuration(environment, config_file = nil)
     config_file ||= config_location
+    if config_file.nil?
+      raise "No configuration file was provided"
+    end
     unless File.exists?(config_file)
       raise "Configuration file #{config_file} does not exist"
     end
