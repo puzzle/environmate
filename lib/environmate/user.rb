@@ -22,7 +22,7 @@ module Environmate
     # * +severity+ - Message severity (log level)
     # * +message+  - The message
     def notify(severity, message)
-      Envionmate.log.log(Logger.const_get(severity.to_s.upcase), message)
+      Environmate.log.log(Logger.const_get(severity.to_s.upcase), message)
       @response << [severity, message]
       if @xmpp_client && @xmpp_user
         xmpp_message = Jabber::Message.new(@xmpp_user, format(severity, message))
