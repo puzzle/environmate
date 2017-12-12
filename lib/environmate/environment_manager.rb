@@ -16,6 +16,13 @@ module Environmate
       end.compact
     end
 
+    def self.orphan_dirs
+      env_dir_entries('directory').map do |dir|
+        env = Environment.new(dir)
+        env.valid? ? nil : env
+      end.compact
+    end
+
     def self.links
       Hash[env_dir_entries('link').map do |dir|
         target = File.readlink(dir)
@@ -42,6 +49,7 @@ module Environmate
     def self.cleanup
       cleanup_links
       cleanup_environments
+      cleanup_orphan_dirs
     end
 
     # puppet environment name from branch name
@@ -81,6 +89,7 @@ module Environmate
       old_links = links.keys - valid_links
       old_links.each do |old_link|
         old_link_path = File.join(env_path, old_link)
+        Environmate.log.debug("Cleanup: Removing old link #{old_link_path}")
         File.delete(old_link_path)
       end
     end
@@ -89,7 +98,18 @@ module Environmate
     def self.cleanup_environments
       used_envs = links.values.uniq
       environments.each do |env|
-        env.delete unless used_envs.include?(env.name)
+        unless used_envs.include?(env.name)
+          Environmate.log.debug("Cleanup: Removing old environment #{env.name}")
+          env.delete
+        end
+      end
+    end
+
+    # cleanup all orphan directories
+    def self.cleanup_orphan_dirs
+      orphan_dirs.each do |env|
+        Environmate.log.debug("Cleanup: Removing orphan dir #{env.name}")
+        env.delete
       end
     end
 
