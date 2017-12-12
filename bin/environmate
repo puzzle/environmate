@@ -8,7 +8,7 @@ require 'environmate/app'
 options = {
   verbosity:  nil,
   foreground: false,
-  trace:      true,
+  trace:      false,
 }
 
 parser = OptionParser.new do|opts|
@@ -38,5 +38,11 @@ end
 
 parser.parse!
 
-Environmate::App.setup(options)
-Environmate::App.run!
+begin
+  Environmate::App.setup(options)
+  Environmate::App.run!
+rescue => e
+  puts e.message
+  puts e.backtrace if options[:trace]
+  exit(-1)
+end
