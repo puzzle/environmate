@@ -1,17 +1,16 @@
-require 'open4'
+require 'open3'
 
 module Environmate
   module Command
 
     def command(cmd)
-      pid, stdin, stdout, stderr = Open4.popen4(cmd)
-      _, status = Process::waitpid2(pid)
+      stdout, stderr, status = Open3.capture3(cmd)
       unless status.success?
         message = []
         message << "Command '#{cmd}' failed"
         message << 'Status:' + status.exitstatus.to_s
-        message << "Stdout:\n" + stdout.read.strip
-        message << "Stderr:\n" + stderr.read.strip
+        message << "Stdout:\n" + stdout.strip
+        message << "Stderr:\n" + stderr.strip
         raise Environmate::DeployError, message.join("\n")
       end
       return stdout
