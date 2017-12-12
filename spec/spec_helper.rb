@@ -1,5 +1,9 @@
 require 'bundler/setup'
+require 'rack/test'
+require 'rspec'
 require 'simplecov'
+
+ENV['RACK_ENV'] = 'test'
 
 SimpleCov.start do
   add_filter '/spec/'
@@ -9,7 +13,20 @@ end
 
 require 'environmate/app'
 
+Environmate::App.setup({
+  config_file: 'spec/fixtures/test_config.yml',
+  trace: true,
+})
+
+module RSpecMixin
+  include Rack::Test::Methods
+  def app
+    Environmate::App
+  end
+end
+
 RSpec.configure do |config|
+  config.include RSpecMixin
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
 

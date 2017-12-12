@@ -1,0 +1,2 @@
+forge 'https://forgeapi.puppetlabs.com'
+mod 'example-testmodule', :path => '/tmp/puppet/example-testmodule'

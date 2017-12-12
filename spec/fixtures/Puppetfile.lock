@@ -1,0 +1,8 @@
+PATH
+  remote: /tmp/puppet/example-testmodule
+  specs:
+    example-testmodule (0.1.0)
+
+DEPENDENCIES
+  example-testmodule (>= 0)
+

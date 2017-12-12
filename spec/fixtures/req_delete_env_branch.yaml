@@ -1,0 +1,23 @@
+---
+commits: []
+
+repository:
+  git_http_url: https://gitlab.example.com/example_group/example_project.git
+  homepage: https://gitlab.example.com/example_group/example_project
+  description: Example Project
+  visibility_level: 0
+  git_ssh_url: git@gitlab.example.com:example_group/example_project.git
+  url: git@gitlab.example.com:example_group/example_project.git
+  name: example_project
+user_email: tux@example.com
+before: c8751696193bb97c649f2e4cfc6cf0ae7442ba4f
+after: "0000000000000000000000000000000000000000"
+project_id: 466
+message:
+checkout_sha:
+total_commits_count: 0
+object_kind: push
+user_id: 2
+user_name: Tux Plush
+ref: refs/heads/env/awesome_feature
+

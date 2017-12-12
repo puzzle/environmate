@@ -1,0 +1,31 @@
+---
+commits:
+- id: 7df26255178fb9c47abf405b6436848fdb1a0df1
+  message: |
+    Update my awesome new feature
+
+  author:
+    name: Tux Plush
+    email: tux@example.com
+  url: https://gitlab.example.com/example_group/example_project/commit/7df26255178fb9c47abf405b6436848fdb1a0df1
+  timestamp: "2016-03-10T12:52:50+01:00"
+repository:
+  git_http_url: https://gitlab.example.com/example_group/example_project.git
+  homepage: https://gitlab.example.com/example_group/example_project
+  description: Example Project
+  visibility_level: 0
+  git_ssh_url: git@gitlab.example.com:example_group/example_project.git
+  url: git@gitlab.example.com:example_group/example_project.git
+  name: example_project
+user_email: tux@example.com
+before: 589a88f6be8eaac4687a281486486aee1d751b3c
+after: 7df26255178fb9c47abf405b6436848fdb1a0df1
+project_id: 466
+message:
+checkout_sha: 7df26255178fb9c47abf405b6436848fdb1a0df1
+total_commits_count: 1
+object_kind: push
+user_id: 2
+user_name: Tux Plush
+ref: refs/heads/env/awesome_feature
+
