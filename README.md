@@ -138,6 +138,13 @@ Here is a complete example config:
           - bob@example.com: 'bob@jabber.example.com'
           - alice@example.com: 'alice@jabber.example.com'
 
+      server_settings:
+        :Port: 4443
+        :Bind: '0.0.0.0'
+        :SSLEnable: true
+        :SSLCertificate: '/path/to/your/cert.pem'
+        :SSLPrivateKey: '/path/to/your/key.pem'
+
 ## Internals
 
 ### Locking
