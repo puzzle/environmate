@@ -19,15 +19,15 @@ your puppet master by running:
 
 ## Usage
 
-Environmanet comes with puma included and no additional setup
+Environmate comes with puma included and no additional setup
 is required. Simply run environmate from the console:
 
     $ /opt/puppetlabs/puppet/bin/environmate --help
 
 ## Environment Management
 
-Environmate provides two different ways to deploy code which wich represent two
-different use-cases and are explained in the following section.
+Environmate provides two different ways to deploy code which represent two
+different use cases and are explained in the following section.
 
 ### Dynamic Environments
 
@@ -39,9 +39,9 @@ To deploy such branches as environments a web hook has to registered in Gitlab
 with the API endpoint '/gitlab_push' on push events. The web application will
 examine each push event and deploy the specified revision.
 
-The typical use-case for this type of deployments is for development purposes:
+The typical use case for this type of deployment is for development purposes:
 
-On the local development machine start a new branch and push it to your GIT
+Start a new branch on a local development machine and push it to your GIT
 server:
 
     $ git checkout -b env/mynewfeature
@@ -49,7 +49,7 @@ server:
     $ git commit -a -m "my awesome new feature"
     $ git push -u origin env/mynewfeature
 
-Enviornmate will now atomatically create a new environment with the name
+Environmate will now automatically create a new environment with the name
 'mynewfeature' which you can test on any node with:
 
     $ puppet agent --test --environment mynewfeature
@@ -69,7 +69,7 @@ The push request to this endpoint has to contain the following data:
       "revision":    "git_commit_revision_(sha1)"
     }
 
-Those environments and their tokens have to be pre-configured in order to work.
+Those environments and their tokens have to be preconfigured in order to work.
 Dynamic environments can not have the same name as a static environment and will
 fail to deploy if created.
 
@@ -82,7 +82,7 @@ of the SHA1 reference. Only after the environment is completely deployed it will
 a link with the puppet environment name or switch an existing name in an atomic operation
 which guarantees that there is never an invalid environment.
 
-If the deployment of a revision for some reason fails, the link will remain on the old
+If the deployment of a revision fails for some reason, the link will remain on the old
 revision and the puppet master stays unaffected.
 
 ### Notifications
