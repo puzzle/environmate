@@ -38,6 +38,7 @@ module Environmate
       'dynamic_environments_prefix' => 'env/',
       'static_environments'         => {},
       'install_modules_command'     => 'librarian-puppet install --destructive',
+      'server_settings'             => {},
     }
   end
 

@@ -18,6 +18,10 @@ parser = OptionParser.new do|opts|
 		options[:config_file] = config_file
 	end
 
+  opts.on('-e', '--rack_env RAILS_ENV', 'Rack environment') do |rack_env|
+		ENV['RACK_ENV'] = rack_env
+	end
+
 	opts.on('-v', '--verbosity VERBOSITY', 'Log Verbosity: ERROR, WARN, INFO, DEBUG') do |verbosity|
 		options[:verbosity] = verbosity
 	end
@@ -39,8 +43,7 @@ end
 parser.parse!
 
 begin
-  Environmate::App.setup(options)
-  Environmate::App.run!
+  Environmate::App.run!(options)
 rescue => e
   puts e.message
   puts e.backtrace if options[:trace]

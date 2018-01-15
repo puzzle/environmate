@@ -13,10 +13,7 @@ end
 
 require 'environmate/app'
 
-Environmate::App.setup({
-  config_file: 'spec/fixtures/test_config.yml',
-  trace: true,
-})
+Environmate.load_configuration('test', 'spec/fixtures/test_config.yml')
 
 module RSpecMixin
   include Rack::Test::Methods

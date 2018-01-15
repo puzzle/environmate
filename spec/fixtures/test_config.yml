@@ -20,6 +20,12 @@ defaults: &defaults
 
 production:
   <<: *defaults
+  server_settings:
+    :Port: 4443
+    :Bind: '0.0.0.0'
+    :SSLEnable: true
+    :SSLCertificate: '/path/to/your/cert.pem'
+    :SSLPrivateKey: '/path/to/your/key.pem'
 
 test:
   <<: *defaults

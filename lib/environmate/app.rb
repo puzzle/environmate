@@ -8,15 +8,34 @@ require 'environmate'
 module Environmate
   class App < Sinatra::Base
 
-    def self.setup(options)
+    def self.run!(options = {})
       Environmate.load_configuration(settings.environment.to_s, options[:config_file])
+      configuration = Environmate.configuration
 
-      logfile  = options[:foreground] ? STDOUT : Environmate.configuration['logfile']
-      loglevel = options[:verbosity] || Environmate.configuration['loglevel']
+      logfile  = options[:foreground] ? STDOUT : configuration['logfile']
+      loglevel = options[:verbosity] || configuration['loglevel']
       Environmate.logger = Logger.new(logfile)
       Environmate.log.level = Logger.const_get(loglevel.upcase)
 
       Environmate::Xmpp.init
+
+      server_settings = configuration['server_settings']
+
+      if server_settings[:SSLEnable]
+        require 'webrick/https'
+
+        ssl_cert = server_settings[:SSLCertificate] || ""
+        ssl_key  = server_settings[:SSLPrivateKey] || ""
+        # replace cert filename with content
+        if File.exists?(ssl_cert)
+          server_settings[:SSLCertificate] = OpenSSL::X509::Certificate.new(File.open(ssl_cert).read)
+        end
+        if File.exists?(ssl_key)
+          server_settings[:SSLPrivateKey] = OpenSSL::PKey::RSA.new(File.open(ssl_key).read)
+        end
+      end
+
+      Rack::Handler::WEBrick.run(self, server_settings)
     end
 
     #
