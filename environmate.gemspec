@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Manage Puppet environments with a GIT workflow'
   spec.description   = 'Environmate is a Webhook receiver for various GIT '\
-                       'web frontends for deloying Puppet environments to'\
+                       'web frontends for deloying Puppet environments to '\
                        'the master/server'
   spec.homepage      = 'https://github.com/puzzle/environmate'
   spec.license       = 'GPL-3.0'
