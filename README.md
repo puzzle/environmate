@@ -19,7 +19,7 @@ your puppet master by running:
 
 ## Usage
 
-Environmate comes with puma included and no additional setup
+Environmate comes with a webserver included and no additional setup
 is required. Simply run environmate from the console:
 
     $ /opt/puppetlabs/puppet/bin/environmate --help
@@ -112,7 +112,7 @@ Here is a complete example config:
     production:
       environment_path: '/etc/puppetlabs/code/environments'
 
-      lockfile_path: '/var/run/lock/puppet_deploy_lock'
+      lockfile_path: '/var/run/lock/environmate_deploy'
       lockfile_options:
         timeout: 300
 
@@ -124,6 +124,7 @@ Here is a complete example config:
       master_path: '/etc/puppetlabs/code/environmate_master'
 
       dynamic_environments_prefix: 'env/'
+      install_modules_command: 'librarian-puppet install --destructive'
 
       static_environments:
         nonprod:
