@@ -13,8 +13,11 @@ module Environmate
     unless File.exists?(config_file)
       raise "Configuration file #{config_file} does not exist"
     end
-    config = YAML.load_file(config_file)[environment]
-    @configuration = config_defaults.merge(config)
+    config = YAML.load_file(config_file)
+    if config[environment].nil?
+      raise "No configuration for environment '#{environment}' found in file #{config_file}"
+    end
+    @configuration = config_defaults.merge(config[environment])
   end
 
   def self.configuration
