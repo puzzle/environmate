@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to Enviornmate will be documented in this file.
 
+## [unreleased] - unreleased
+### Fixed
+- Trap and handle signal to prevent exception on shutdown
+
 ## [0.1.1] - 2018-02-12
 ### Fixed
 - Sinatra environment handling
