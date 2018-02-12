@@ -15,6 +15,12 @@ Gem::Specification.new do |spec|
                        'the master/server'
   spec.homepage      = 'https://github.com/puzzle/environmate'
   spec.license       = 'GPL-3.0'
+	spec.metadata      = {
+		'bug_tracker_uri'   => 'https://github.com/puzzle/environmate/issues',
+		'changelog_uri'     => 'https://github.com/puzzle/environmate/blob/master/CHANGELOG.md',
+		'documentation_uri' => 'https://github.com/puzzle/environmate/blob/master/README.md',
+		'source_code_uri'   => 'https://github.com/puzzle/environmate',
+	}
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
