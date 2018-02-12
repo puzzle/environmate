@@ -105,7 +105,7 @@ It will use the first yaml file it finds:
 Additionally you can provide a configuration file when starting the environmate
 service:
 
-    $ /opt/puppetlabs/puppet/bin/environmate --config /path/to/my/conf.yml
+    $ /opt/puppetlabs/puppet/bin/environmate --config /path/to/my/conf.yml --rack_env production
 
 Here is a complete example config:
 
@@ -140,7 +140,7 @@ Here is a complete example config:
 
       server_settings:
         :Port: 4443
-        :Bind: '0.0.0.0'
+        :Host: '0.0.0.0'
         :SSLEnable: true
         :SSLCertificate: '/path/to/your/cert.pem'
         :SSLPrivateKey: '/path/to/your/key.pem'
@@ -166,11 +166,11 @@ revisions. If no good starting point can be evaluated it will default to the mas
 To easily debug environmate you can start it manually with the foreground flag to get all
 the log output to the console. This way you don't have to adjust the config:
 
-    $ /opt/puppetlabs/puppet/bin/environmate --foreground --verbosity DEBUG
+    $ /opt/puppetlabs/puppet/bin/environmate --foreground --verbosity DEBUG --rack_env production
 
 If you want to see stacktraces add the trace flag:
 
-    $ /opt/puppetlabs/puppet/bin/environmate --foreground --verbosity DEBUG --trace
+    $ /opt/puppetlabs/puppet/bin/environmate --foreground --verbosity DEBUG --rack_env production --trace
 
 ## Contributing
 

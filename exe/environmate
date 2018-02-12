@@ -18,7 +18,7 @@ parser = OptionParser.new do|opts|
 		options[:config_file] = config_file
 	end
 
-  opts.on('-e', '--rack_env RAILS_ENV', 'Rack environment') do |rack_env|
+  opts.on('-e', '--rack_env RACK_ENV', 'Rack environment') do |rack_env|
 		ENV['RACK_ENV'] = rack_env
 	end
 
