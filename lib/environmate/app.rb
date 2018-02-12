@@ -9,6 +9,7 @@ module Environmate
   class App < Sinatra::Base
 
     def self.run!(options = {})
+      set :environment, ENV['RACK_ENV'] unless ENV['RACK_ENV'].nil?
       Environmate.load_configuration(settings.environment.to_s, options[:config_file])
       configuration = Environmate.configuration
 
