@@ -9,24 +9,48 @@ module Environmate
   class App < Sinatra::Base
 
     def self.run!(options = {})
-      set :environment, ENV['RACK_ENV'] unless ENV['RACK_ENV'].nil?
-      Environmate.load_configuration(settings.environment.to_s, options[:config_file])
-      configuration = Environmate.configuration
-
-      logfile  = options[:foreground] ? STDOUT : configuration['logfile']
-      loglevel = options[:verbosity] || configuration['loglevel']
-      Environmate.logger = Logger.new(logfile)
-      Environmate.log.level = Logger.const_get(loglevel.upcase)
+      @options = options
+      load_configuration
 
       Environmate::Xmpp.init
 
-      server_settings = configuration['server_settings']
+      run_signal_handler
+      run_server(@configuration['server_settings'])
+    end
 
+    def self.load_configuration
+      set :environment, ENV['RACK_ENV'] unless ENV['RACK_ENV'].nil?
+      Environmate.load_configuration(settings.environment.to_s, @options[:config_file])
+      @configuration = Environmate.configuration
+
+      logfile  = @options[:foreground] ? STDOUT : @configuration['logfile']
+      loglevel = @options[:verbosity] || @configuration['loglevel']
+      Environmate.logger = Logger.new(logfile)
+      Environmate.log.level = Logger.const_get(loglevel.upcase)
+    end
+
+    def self.run_signal_handler
+      Environmate.log.info('Starting signal handling')
+      handle_exit_signals = Thread.new do
+        Environmate::SignalHandler.new.handle_signals(:INT, :TERM) do
+	        shutdown_server
+          raise 'server shutdown'
+        end
+      end
+      handle_restart_signals = Thread.new do
+      Environmate::SignalHandler.new.handle_signals(:HUP) do
+        Environmate.log.error('reload/restart via SIGHUP is currently not supported')
+        end
+      end
+    end
+
+    def self.run_server(server_settings)
       if server_settings[:SSLEnable]
         require 'webrick/https'
 
         ssl_cert = server_settings[:SSLCertificate] || ""
         ssl_key  = server_settings[:SSLPrivateKey] || ""
+
         # replace cert filename with content
         if File.exists?(ssl_cert)
           server_settings[:SSLCertificate] = OpenSSL::X509::Certificate.new(File.open(ssl_cert).read)
@@ -37,6 +61,11 @@ module Environmate
       end
 
       Rack::Handler::WEBrick.run(self, server_settings)
+    end
+
+    def self.shutdown_server
+      Environmate.log.info('Envionmate is shutting down')
+      Rack::Handler::WEBrick.shutdown
     end
 
     #
