@@ -12,7 +12,7 @@ module Environmate
       @xmpp_settings = Environmate.configuration['xmpp']
       if @xmpp_settings && @xmpp_settings['users'].has_key?(@email)
         @xmpp_user   = @xmpp_settings['users'][@email]
-        Envionmate.log.info("Xmpp user found #{@xmpp_user}")
+        Environmate.log.info("Xmpp user found #{@xmpp_user}")
       end
       @response      = []
     end
