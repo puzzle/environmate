@@ -1,0 +1,25 @@
+environment_path: '/etc/puppetlabs/code/environments'
+
+lockfile_path: '/tmp/puppet_deploy_lock'
+lockfile_options:
+  timeout: 300
+
+master_repository: 'http://gitlab.exmple.com/puppet/control'
+master_branch: 'master'
+master_path: '/etc/puppetlabs/code/puppet_deploy_hook_master'
+
+dynamic_environments_prefix: 'env/'
+install_modules_command: 'librarian-puppet install --destructive'
+
+static_environments:
+  nonprod:
+    token: 'abc123'
+  prod:
+    token: '123abc'
+
+server_settings:
+  :Port: 4443
+  :Host: '0.0.0.0'
+  :SSLEnable: true
+  :SSLCertificate: '/path/to/your/cert.pem'
+  :SSLPrivateKey: '/path/to/your/key.pem'
