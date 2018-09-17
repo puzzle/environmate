@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'sinatra', '~> 2'
   spec.add_dependency 'lockfile', '~> 2'
+  spec.add_dependency 'gli', '~> 2'
 
   # TODO: make this dependencies optional
   spec.add_dependency 'xmpp4r', '~> 0'

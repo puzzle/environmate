@@ -9,24 +9,11 @@ module Environmate
   class App < Sinatra::Base
 
     def self.run!(options = {})
-      @options = options
-      load_configuration
-
-      Environmate::Xmpp.init
+      set :environment, options[:rack_env]
+      @configuration = Environmate.configuration
 
       run_signal_handler
       run_server(@configuration['server_settings'])
-    end
-
-    def self.load_configuration
-      set :environment, ENV['RACK_ENV'] unless ENV['RACK_ENV'].nil?
-      Environmate.load_configuration(settings.environment.to_s, @options[:config_file])
-      @configuration = Environmate.configuration
-
-      logfile  = @options[:foreground] ? STDOUT : @configuration['logfile']
-      loglevel = @options[:verbosity] || @configuration['loglevel']
-      Environmate.logger = Logger.new(logfile)
-      Environmate.log.level = Logger.const_get(loglevel.upcase)
     end
 
     def self.run_signal_handler
